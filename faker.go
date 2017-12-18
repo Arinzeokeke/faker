@@ -5,13 +5,14 @@ import (
 	"math/rand"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"../../tr"
 )
 
 const (
-	namePrefix = "name"
+	namePrefix    = "name"
 	addressPrefix = "address"
 )
 
@@ -71,6 +72,11 @@ func (f *Fake) Name() *Name {
 	return &Name{f}
 }
 
+// Address returns address
+func (f *Fake) Address() *Address {
+	return &Address{f}
+}
+
 //Lang sets lang
 func (f *Fake) Lang(l string) *Fake {
 	f.Engine.DefaultLocale = f.Engine.Lang(l)
@@ -90,4 +96,24 @@ func directoryExists(dir string) bool {
 		return false
 	}
 	return true
+}
+
+func getList(n *tr.Engine, q string, d string) ([]string, error) {
+	w, err := n.Tr(q)
+	if err != nil {
+		w, err = n.Lang(d).Tr(q)
+	}
+	if err != nil {
+		return nil, err
+	}
+	return strings.Split(w, "\n"), nil
+}
+
+func (f *Fake) pick(affix string) string {
+	v, err := getList(f.Engine, affix, f.DefaultLocale)
+	if err != nil {
+		panic(err)
+	}
+	return v[random(len(v))]
+
 }
