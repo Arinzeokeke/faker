@@ -3,10 +3,6 @@ package faker
 import "../../tr"
 import "strings"
 
-const (
-	prefix = "name"
-)
-
 // Namer interface
 type Namer interface {
 	FirstName() string
@@ -28,11 +24,11 @@ type Name struct {
 
 // FirstName returns first name
 func (n *Name) FirstName() string {
-	if directoryExists(n.DefaultLocale+"/"+prefix+"/male_first_name") &&
-		directoryExists(n.DefaultLocale+"/"+prefix+"/female_first_name") {
+	if directoryExists(n.DefaultLocale+"/"+namePrefix+"/male_first_name") &&
+		directoryExists(n.DefaultLocale+"/"+namePrefix+"/female_first_name") {
 
 		// TODO give gender choice
-		if !directoryExists(n.DefaultLocale + "/" + prefix + "/first_name") {
+		if !directoryExists(n.DefaultLocale + "/" + namePrefix + "/first_name") {
 			return n.pick("/female_first_name")
 		}
 
@@ -42,11 +38,11 @@ func (n *Name) FirstName() string {
 
 // LastName returns last name
 func (n *Name) LastName() string {
-	if directoryExists(n.DefaultLocale+"/"+prefix+"/male_last_name") &&
-		directoryExists(n.DefaultLocale+"/"+prefix+"/female_last_name") {
+	if directoryExists(n.DefaultLocale+"/"+namePrefix+"/male_last_name") &&
+		directoryExists(n.DefaultLocale+"/"+namePrefix+"/female_last_name") {
 
 		// TODO give gender choice
-		if !directoryExists(n.DefaultLocale + "/" + prefix + "/last_name") {
+		if !directoryExists(n.DefaultLocale + "/" + namePrefix + "/last_name") {
 			return n.pick("/female_last_name")
 		}
 
@@ -54,8 +50,8 @@ func (n *Name) LastName() string {
 	return n.pick("/last_name")
 }
 
-
-func (n *Name) FullName() string  {
+// FullName gets full name
+func (n *Name) FullName() string {
 	return n.FirstName() + " " + n.LastName()
 }
 
@@ -108,7 +104,7 @@ func getList(n *tr.Engine, q string, d string) ([]string, error) {
 }
 
 func (n *Name) pick(affix string) string {
-	v, err := getList(n.Engine, prefix+affix, n.DefaultLocale)
+	v, err := getList(n.Engine, namePrefix+affix, n.DefaultLocale)
 	if err != nil {
 		panic(err)
 	}

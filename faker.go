@@ -10,6 +10,11 @@ import (
 	"../../tr"
 )
 
+const (
+	namePrefix = "name"
+	addressPrefix = "address"
+)
+
 var (
 	definitions = map[string][]string{
 		"name":         []string{"first_name", "last_name", "prefix", "suffix", "gender", "title", "male_first_name", "female_first_name", "male_middle_name", "female_middle_name", "male_last_name", "female_last_name"},
