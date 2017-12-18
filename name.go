@@ -11,64 +11,89 @@ const (
 type Namer interface {
 	FirstName() string
 	LastName() string
-	// FindName() string
-	// JobTitle() string
-	// Prefix() string
-	// Suffix() string
-	// Title() string
-	// JobDescriptor() string
-	// JobArea() string
-	// JobType() string
+	FullName() string
+	JobTitle() string
+	Prefix() string
+	Suffix() string
+	JobDescriptor() string
+	JobArea() string
+	JobType() string
+	Gender() string
 }
 
 // Name struct
 type Name struct {
-	engine *tr.Engine
-	f      *Fake
+	*Fake
 }
 
 // FirstName returns first name
 func (n *Name) FirstName() string {
-	if directoryExists(n.f.defaultLocale+"/"+prefix+"/male_first_name") &&
-		directoryExists(n.f.defaultLocale+"/"+prefix+"/female_first_name") {
+	if directoryExists(n.DefaultLocale+"/"+prefix+"/male_first_name") &&
+		directoryExists(n.DefaultLocale+"/"+prefix+"/female_first_name") {
 
 		// TODO give gender choice
-		if !directoryExists(n.f.defaultLocale + "/" + prefix + "/first_name") {
-			firsties, err := getList(n.engine, prefix+"/female_first_name", n.f.defaultLocale)
-			if err != nil {
-				panic(err)
-			}
-			return firsties[random(len(firsties))]
+		if !directoryExists(n.DefaultLocale + "/" + prefix + "/first_name") {
+			return n.pick("/female_first_name")
 		}
 
 	}
-	firsties, err := getList(n.engine, prefix+"/first_name", n.f.defaultLocale)
-	if err != nil {
-		panic(err)
-	}
-	return firsties[random(len(firsties))]
+	return n.pick("/first_name")
 }
 
 // LastName returns last name
 func (n *Name) LastName() string {
-	if directoryExists(n.f.defaultLocale+"/"+prefix+"/male_last_name") &&
-		directoryExists(n.f.defaultLocale+"/"+prefix+"/female_last_name") {
+	if directoryExists(n.DefaultLocale+"/"+prefix+"/male_last_name") &&
+		directoryExists(n.DefaultLocale+"/"+prefix+"/female_last_name") {
 
 		// TODO give gender choice
-		if !directoryExists(n.f.defaultLocale + "/" + prefix + "/last_name") {
-			firsties, err := getList(n.engine, prefix+"/female_last_name", n.f.defaultLocale)
-			if err != nil {
-				panic(err)
-			}
-			return firsties[random(len(firsties))]
+		if !directoryExists(n.DefaultLocale + "/" + prefix + "/last_name") {
+			return n.pick("/female_last_name")
 		}
 
 	}
-	lasties, err := getList(n.engine, prefix+"/last_name", n.f.defaultLocale)
-	if err != nil {
-		panic(err)
-	}
-	return lasties[random(len(lasties))]
+	return n.pick("/last_name")
+}
+
+
+func (n *Name) FullName() string  {
+	return n.FirstName() + " " + n.LastName()
+}
+
+// JobDescriptor returns a job description
+func (n *Name) JobDescriptor() string {
+	return n.pick("/title/descriptor")
+}
+
+//JobArea returns a job area
+func (n *Name) JobArea() string {
+	return n.pick("/title/level")
+}
+
+//JobType returns a job type
+func (n *Name) JobType() string {
+	return n.pick("/title/job")
+}
+
+//JobTitle returns a job title
+func (n *Name) JobTitle() string {
+	return n.JobDescriptor() + " " + n.JobArea() + " " + n.JobType()
+}
+
+// Gender returns a gender
+func (n *Name) Gender() string {
+	return n.pick("/gender")
+}
+
+//Prefix returns a prefix
+func (n *Name) Prefix() string {
+	// TODO handle gender
+	return n.pick("/prefix")
+}
+
+//Suffix returns a suffix
+func (n *Name) Suffix() string {
+	// TODO handle gender
+	return n.pick("/suffix")
 }
 
 func getList(n *tr.Engine, q string, d string) ([]string, error) {
@@ -80,4 +105,13 @@ func getList(n *tr.Engine, q string, d string) ([]string, error) {
 		return nil, err
 	}
 	return strings.Split(w, "\n"), nil
+}
+
+func (n *Name) pick(affix string) string {
+	v, err := getList(n.Engine, prefix+affix, n.DefaultLocale)
+	if err != nil {
+		panic(err)
+	}
+	return v[random(len(v))]
+
 }

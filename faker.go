@@ -31,29 +31,30 @@ var (
 
 // Fake Object
 type Fake struct {
-	locale        string
-	defaultLocale string
-	engine        *tr.Engine
+	Locale        string
+	DefaultLocale string
+	Engine        *tr.Engine
 }
 
 // Faker interface
 type Faker interface {
-	Name() Name
+	Name() *Name
+	Lang(l string)
 }
 
 //New creates new faker
 func New() (*Fake, error) {
 
-	engine, err := tr.Init("locale", "en")
+	e, err := tr.Init("../locale", "en")
 	if err != nil {
 		return nil, fmt.Errorf("Couldn't load locale, Error: %v", err)
 
 	}
 
 	fake := &Fake{
-		locale:        "en",
-		defaultLocale: "en",
-		engine:        engine,
+		Locale:        "en",
+		DefaultLocale: "en",
+		Engine:        e,
 	}
 
 	return fake, nil
@@ -61,11 +62,15 @@ func New() (*Fake, error) {
 }
 
 // Name returns name
-func (f *Fake) Name() Name {
-	return Name{
-		f:      f,
-		engine: f.engine,
-	}
+func (f *Fake) Name() *Name {
+	return &Name{f}
+}
+
+//Lang sets lang
+func (f *Fake) Lang(l string) *Fake {
+	f.Engine.DefaultLocale = f.Engine.Lang(l)
+	f.Locale = l
+	return f
 }
 
 func random(i int) int {
