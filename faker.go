@@ -2,7 +2,6 @@ package faker
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/Arinzeokeke/tr"
 )
@@ -11,20 +10,38 @@ import (
 type Fake struct {
 	locale        string
 	defaultLocale string
+	engine        *tr.Engine
 }
 
+// Faker interface
 type Faker interface {
 	Name() Namer
 }
 
-func init() {
+//New creates new faker
+func New() (*Fake, error) {
+
 	engine, err := tr.Init("locale", "en")
 	if err != nil {
-		fmt.Printf("Couldn't load locale, Error: %v", err)
-		os.Exit(1)
+		return nil, fmt.Errorf("Couldn't load locale, Error: %v", err)
 
 	}
 
-	fmt.Println(engine.Tr("address"))
+	fake := &Fake{
+		locale:        "en",
+		defaultLocale: "en",
+		engine:        engine,
+	}
+
+	return fake, nil
+
+}
+
+// Name returns name
+func (f *Fake) Name() Namer {
+	return Name{
+		f:      f,
+		engine: f.engine,
+	}
 
 }
