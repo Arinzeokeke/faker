@@ -3,7 +3,7 @@ package faker
 // Addresser interface
 type Addresser interface {
 	ZipCode() string
-	// City() string
+	City() string
 	// CityPrefix() string
 	// CitySuffix() string
 	// StreetName() string
@@ -27,6 +27,10 @@ type Address struct {
 
 //ZipCode returns a zip code
 func (a *Address) ZipCode() string {
-	// TODO handle gender
-	return a.pick("/suffix")
+	// TODO handle format choices
+	return replaceSymbols(a.pick(addressPrefix + "/postcode"))
+}
+
+func (a *Address) City() string {
+
 }
