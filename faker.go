@@ -2,11 +2,7 @@ package faker
 
 import (
 	"fmt"
-	"math/rand"
-	"os"
-	"path/filepath"
 	"strings"
-	"time"
 
 	"../../tr"
 )
@@ -46,6 +42,7 @@ type Fake struct {
 type Faker interface {
 	Name() *Name
 	Lang(l string)
+	format(s, p string) string
 }
 
 //New creates new faker
@@ -84,4 +81,25 @@ func (f *Fake) Lang(l string) *Fake {
 	return f
 }
 
+func (f *Fake) format(s, p string) string {
+	for strings.Index(s, "{#") != -1 && strings.Index(s, "}") != 1 {
+		start := strings.Index(s, "{#")
+		end := strings.Index(s, "}")
 
+		if start == -1 && end == -1 {
+			return s
+		}
+		token := s[start+2 : end-1]
+		token = strings.ToLower(token)
+		token = strings.Replace(s, ".", "/", -1)
+		var affix string
+		if strings.Contains(token, "/") {
+			affix = token
+		} else {
+			affix = p + "/" + token
+		}
+		out := f.pick(affix)
+		s = s[:start] + out + s[end+1:]
+	}
+	return s
+}

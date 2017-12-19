@@ -31,6 +31,8 @@ func (a *Address) ZipCode() string {
 	return replaceSymbols(a.pick(addressPrefix + "/postcode"))
 }
 
+//City returns a city
 func (a *Address) City() string {
+	return a.format(a.pick(addressPrefix+"/city"), addressPrefix)
 
 }

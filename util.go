@@ -49,7 +49,7 @@ func directoryExists(dir string) bool {
 	return true
 }
 
-func getList(n *tr.Engine, q string, d string) ([]string, error) {
+func getList(n *tr.Engine, q, d string) ([]string, error) {
 	w, err := n.Tr(q)
 	if err != nil {
 		w, err = n.Lang(d).Tr(q)
