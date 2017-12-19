@@ -40,9 +40,10 @@ type Fake struct {
 
 // Faker interface
 type Faker interface {
-	Name() *Name
+	Name() Namer
 	Lang(l string)
 	format(s, p string) string
+	Address() Addresser
 }
 
 //New creates new faker
@@ -65,12 +66,12 @@ func New() (*Fake, error) {
 }
 
 // Name returns name
-func (f *Fake) Name() *Name {
+func (f *Fake) Name() Namer {
 	return &Name{f}
 }
 
 // Address returns address
-func (f *Fake) Address() *Address {
+func (f *Fake) Address() Addresser {
 	return &Address{f}
 }
 
@@ -82,13 +83,9 @@ func (f *Fake) Lang(l string) *Fake {
 }
 
 func (f *Fake) format(s, p string) string {
-	for strings.Index(s, "{#") != -1 && strings.Index(s, "}") != 1 {
-		start := strings.Index(s, "{#")
+	for strings.Index(s, "#{") != -1 && strings.Index(s, "}") != 1 {
+		start := strings.Index(s, "#{")
 		end := strings.Index(s, "}")
-
-		if start == -1 && end == -1 {
-			return s
-		}
 		token := s[start+2 : end-1]
 		token = strings.ToLower(token)
 		token = strings.Replace(s, ".", "/", -1)
