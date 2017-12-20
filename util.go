@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"../../tr"
+	"github.com/Arinzeokeke/tr"
 )
 
 func replaceSymbols(s string) string {
