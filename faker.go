@@ -45,6 +45,7 @@ type Faker interface {
 	Lang(l string)
 	format(s, p string) string
 	Address() Addresser
+	Commerce() Commercer
 }
 
 // Config for Faker
@@ -79,6 +80,11 @@ func (f *Fake) Name() Namer {
 // Address returns address
 func (f *Fake) Address() Addresser {
 	return &Address{f}
+}
+
+// Address returns address
+func (f *Fake) Commerce() Commercer {
+	return &Commerce{f}
 }
 
 //Lang sets lang

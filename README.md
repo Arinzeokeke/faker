@@ -71,7 +71,7 @@ import (
   * JobDescriptor
   * JobArea
   * JobType
-* Commerce (TODO)
+* Commerce
   * Color
   * Department
   * ProductName
