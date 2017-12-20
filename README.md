@@ -11,7 +11,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/Arinzeokek/faker"
+	"github.com/Arinzeokeke/faker"
 )
 
  func main() {
