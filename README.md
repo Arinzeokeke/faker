@@ -1,4 +1,4 @@
-#### Faker
+### Faker
 
 Go library that generates fake data. A Golang port of [faker.js](https://github.com/Marak/faker.js).
 
