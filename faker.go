@@ -8,8 +8,9 @@ import (
 )
 
 const (
-	namePrefix    = "name"
-	addressPrefix = "address"
+	namePrefix     = "name"
+	addressPrefix  = "address"
+	commercePrefix = "commerce"
 )
 
 var (
