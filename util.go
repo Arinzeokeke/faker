@@ -41,6 +41,12 @@ func random(i int) int {
 	return r.Intn(i)
 }
 
+func randomFloat(i int) float64 {
+	s := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(s)
+	return float64(r.Intn(i)) + r.Float64()
+}
+
 func directoryExists(dir string) bool {
 	dir, _ = filepath.Abs(dir)
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
@@ -60,11 +66,3 @@ func getList(n *tr.Engine, q, d string) ([]string, error) {
 	return strings.Split(w, "\n"), nil
 }
 
-func (f *Fake) pick(affix string) string {
-	v, err := getList(f.Engine, affix, f.DefaultLocale)
-	if err != nil {
-		panic(err)
-	}
-	return v[random(len(v))]
-
-}

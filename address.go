@@ -137,18 +137,32 @@ func (a *Address) Direction(abbr bool) string {
 
 //CardinalDirection returns a navigational cardinal direction
 func (a *Address) CardinalDirection(abbr bool) string {
-	//TODO handle cardinal  0, 4
+	var affix string
 	if abbr {
-		return a.pick(addressPrefix + "/direction_abbr")
+		affix = "/direction_abbr"
+	} else {
+		affix = "/direction"
 	}
-	return a.pick(addressPrefix + "/direction")
+	v, err := getList(a.Engine, affix, a.DefaultLocale)
+	if err != nil {
+		panic(err)
+	}
+	v = v[:4]
+	return v[random(len(v))]
 }
 
 //OrdinalDirection returns a navigational ordinal direction
 func (a *Address) OrdinalDirection(abbr bool) string {
-	//TODO handle ordinal 4, 8
+	var affix string
 	if abbr {
-		return a.pick(addressPrefix + "/direction_abbr")
+		affix = "/direction_abbr"
+	} else {
+		affix = "/direction"
 	}
-	return a.pick(addressPrefix + "/direction")
+	v, err := getList(a.Engine, affix, a.DefaultLocale)
+	if err != nil {
+		panic(err)
+	}
+	v = v[4:]
+	return v[random(len(v))]
 }

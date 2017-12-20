@@ -100,3 +100,12 @@ func (f *Fake) format(s, p string) string {
 	}
 	return s
 }
+
+func (f *Fake) pick(affix string) string {
+	v, err := getList(f.Engine, affix, f.DefaultLocale)
+	if err != nil {
+		panic(err)
+	}
+	return v[random(len(v))]
+
+}
