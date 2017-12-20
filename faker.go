@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"../../tr"
+	"github.com/Arinzeokeke/tr"
 )
 
 const (
@@ -49,7 +49,7 @@ type Faker interface {
 //New creates new faker
 func New() (*Fake, error) {
 
-	e, err := tr.Init("../locale", "en")
+	e, err := tr.Init("locale", "en")
 	if err != nil {
 		return nil, fmt.Errorf("Couldn't load locale, Error: %v", err)
 
