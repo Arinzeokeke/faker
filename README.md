@@ -79,8 +79,7 @@ import (
   * ProductAdjective
   * ProductMaterial
   * Product
-* Company (TODO)
-  * Suffixes
+* Company
   * CompanyName
   * CompanySuffix
   * CatchPhrase

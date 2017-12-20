@@ -9,7 +9,7 @@ type Commercer interface {
 	Color() string
 	Department() string
 	ProductName() string
-	Price() string
+	Price(min, max int, s string) string
 	ProductAdjective() string
 	ProductMaterial() string
 	Product() string
