@@ -1,6 +1,8 @@
 package faker
 
 import (
+	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -117,14 +119,15 @@ func (a *Address) StateAbbr() string {
 
 //Latitude returns a latitude
 func (a *Address) Latitude() float64 {
-	//TODO
-	return 4.555
+	v, _ := strconv.ParseFloat(fmt.Sprintf("%.4f", randomFloatRange(-90, 90)), 64)
+	return v
+
 }
 
 //Longitude returns a longitude
 func (a *Address) Longitude() float64 {
-	//TODO
-	return 4.555
+	v, _ := strconv.ParseFloat(fmt.Sprintf("%.4f", randomFloatRange(-180, 180)), 64)
+	return v
 }
 
 //Direction returns a navigational direction

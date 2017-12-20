@@ -41,10 +41,10 @@ func random(i int) int {
 	return r.Intn(i)
 }
 
-func randomFloat(i int) float64 {
+func randomFloatRange(min, max int) float64 {
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
-	return float64(r.Intn(i)) + r.Float64()
+	return float64(r.Intn(max-min)) + float64(min) + r.Float64()
 }
 
 func directoryExists(dir string) bool {
@@ -65,4 +65,3 @@ func getList(n *tr.Engine, q, d string) ([]string, error) {
 	}
 	return strings.Split(w, "\n"), nil
 }
-
