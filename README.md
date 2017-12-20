@@ -90,7 +90,7 @@ import (
   * BsAdjective
   * BsBuzz
   * BsNoun
-* Database (TODO)
+* Database
   * Column
   * Type
   * Collation

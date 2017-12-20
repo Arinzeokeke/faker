@@ -12,6 +12,7 @@ const (
 	addressPrefix  = "address"
 	commercePrefix = "commerce"
 	companyPrefix  = "company"
+	databasePrefix = "database"
 )
 
 var (
@@ -48,6 +49,7 @@ type Faker interface {
 	Address() Addresser
 	Commerce() Commercer
 	Company() Companier
+	Database() Databaser
 }
 
 // Config for Faker
@@ -92,6 +94,11 @@ func (f *Fake) Commerce() Commercer {
 // Company returns company
 func (f *Fake) Company() Companier {
 	return &Company{f}
+}
+
+// Database returns database
+func (f *Fake) Database() Databaser {
+	return &Database{f}
 }
 
 //Lang sets lang
