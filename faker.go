@@ -51,6 +51,7 @@ type Faker interface {
 	Commerce() Commercer
 	Company() Companier
 	Database() Databaser
+	Dater() Dater
 }
 
 // Config for Faker
@@ -100,6 +101,11 @@ func (f *Fake) Company() Companier {
 // Database returns database
 func (f *Fake) Database() Databaser {
 	return &Database{f}
+}
+
+// Date returns date
+func (f *Fake) Date() Dater {
+	return &Date{f}
 }
 
 //Lang sets lang
