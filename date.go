@@ -8,7 +8,7 @@ import (
 type Dater interface {
 	Past(years int) time.Time
 	Future(years int) time.Time
-	Between
+	Between(from, to time.Time) time.Time
 	Recent(days int) time.Time
 	Soon(days int) time.Time
 	Month(abbr, context bool) string
@@ -43,8 +43,8 @@ func (d *Date) Future(years int) time.Time {
 // Between returns a time  between two dates
 func (d *Date) Between(from, to time.Time) time.Time {
 	t := time.Now()
-	offset := random(to.Unix() - from.Unix())
-	return time.Unix(t.Unix()+offset, 0)
+	offset := random(int(to.Unix() - from.Unix()))
+	return time.Unix(t.Unix()+int64(offset), 0)
 }
 
 // Recent returns a recent time
