@@ -13,6 +13,7 @@ const (
 	commercePrefix = "commerce"
 	companyPrefix  = "company"
 	databasePrefix = "database"
+	datePrefix     = "date"
 )
 
 var (
