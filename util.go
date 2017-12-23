@@ -41,6 +41,11 @@ func random(i int) int {
 	return r.Intn(i)
 }
 
+func randomIntRange(min, max int) int {
+	s := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(s)
+	return r.Intn(max-min) + min
+}
 func randomFloatRange(min, max int) float64 {
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
