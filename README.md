@@ -95,7 +95,7 @@ import (
   * Type
   * Collation
   * Engine
-* Date (TODO)
+* Date
   * Past
   * Future
   * Between
