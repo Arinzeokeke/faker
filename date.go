@@ -40,6 +40,13 @@ func (d *Date) Future(years int) time.Time {
 	return time.Unix(tNano/1000, 0)
 }
 
+// Between returns a time  between two dates
+func (d *Date) Between(from, to time.Time) time.Time {
+	t := time.Now()
+	offset := random(to.Unix() - from.Unix())
+	return time.Unix(t.Unix()+offset, 0)
+}
+
 // Recent returns a recent time
 func (d *Date) Recent(days int) time.Time {
 	t := time.Now()
