@@ -14,6 +14,7 @@ const (
 	companyPrefix  = "company"
 	databasePrefix = "database"
 	datePrefix     = "date"
+	internetPrefix = "internet"
 )
 
 var (
@@ -52,6 +53,7 @@ type Faker interface {
 	Company() Companier
 	Database() Databaser
 	Dater() Dater
+	Internet() Internetier
 }
 
 // Config for Faker
