@@ -70,3 +70,8 @@ func getList(n *tr.Engine, q, d string) ([]string, error) {
 	}
 	return strings.Split(w, "\n"), nil
 }
+
+// Return a random elemnet from an array
+func selectElement(arr []string) string {
+	return arr[random(len(arr))]
+}
