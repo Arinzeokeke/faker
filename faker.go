@@ -110,6 +110,11 @@ func (f *Fake) Date() Dater {
 	return &Date{f}
 }
 
+// Internet returns internet
+func (f *Fake) Internet() Internetier {
+	return &Internet{f}
+}
+
 //Lang sets lang
 func (f *Fake) Lang(l string) *Fake {
 	f.Engine.DefaultLocale = f.Engine.Lang(l)
