@@ -58,13 +58,13 @@ type Faker interface {
 
 // Config for Faker
 type Config struct {
-	defaultLocale string
+	DefaultLocale string
 }
 
 //New creates new faker
 func New(c *Config) (*Fake, error) {
 
-	e, err := tr.Init("locale", c.defaultLocale)
+	e, err := tr.Init("locale", c.DefaultLocale)
 	if err != nil {
 		return nil, fmt.Errorf("Couldn't load locale, Error: %v", err)
 
