@@ -86,7 +86,7 @@ func (i *Internet) IP() string {
 	result := []string{}
 
 	for i := 0; i < 4; i++ {
-		result[i] = string(random(255))
+		result = append(result, string(random(255)))
 	}
 
 	return strings.Join(result, ".")
@@ -97,7 +97,7 @@ func (i *Internet) IPv6() string {
 	result := []string{}
 
 	for i := 0; i < 8; i++ {
-		result[i] = randHash()
+		result = append(result, randHash())
 	}
 
 	return strings.Join(result, ".")
