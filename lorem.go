@@ -4,8 +4,12 @@ import "strings"
 
 // Loremer Interface
 type Loremer interface {
+	Lines(lineCount int) string
+	Paragraph(sentenceCount int) string
+	Paragraphs(sentenceCount int, separator string) string
 	Sentence(wordCount int) string
 	Sentences(sentenceCount int, separator string) string
+	Slug(wordCount int) string
 	Word() string
 	Words(num int) string
 }
@@ -13,6 +17,25 @@ type Loremer interface {
 // Lorem struct
 type Lorem struct {
 	*Fake
+}
+
+// Lines Generates lines of lorem separated by `'\n'`
+func (l *Lorem) Lines(lineCount int) string {
+	return l.Lorem().Sentences(lineCount, "\n")
+}
+
+// Paragraph Generate a paragraph
+func (l *Lorem) Paragraph(sentenceCount int) string {
+	return l.Lorem().Sentences(sentenceCount+random(3), " ")
+}
+
+// Paragraphs Generate n paragraph(s)
+func (l *Lorem) Paragraphs(sentenceCount int, separator string) string {
+	paragraphs := []string{}
+	for count := sentenceCount; count > 0; count-- {
+		paragraphs = append(paragraphs, l.Lorem().Paragraph(3))
+	}
+	return strings.Join(paragraphs, "\n \r")
 }
 
 // Sentence Generates a sentence of n words
@@ -29,6 +52,11 @@ func (l *Lorem) Sentences(sentenceCount int, separator string) string {
 		sentences = append(sentences, l.Lorem().Sentence(wc))
 	}
 	return strings.Join(sentences, separator)
+}
+
+// Slug Generate a slugged sentence
+func (l *Lorem) Slug(wordCount int) string {
+	return slugify(l.Lorem().Words(wordCount))
 }
 
 // Word Generates a random word
