@@ -62,9 +62,9 @@ type Config struct {
 }
 
 //New creates new faker
-func New(c *Config) (*Fake, error) {
+func New(c *Config, path string) (*Fake, error) {
 
-	e, err := tr.Init("locale", c.DefaultLocale)
+	e, err := tr.Init(path, c.DefaultLocale)
 	if err != nil {
 		return nil, fmt.Errorf("Couldn't load locale, Error: %v", err)
 
