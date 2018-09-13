@@ -1,4 +1,4 @@
-package main
+package faker
 
 import (
 	"regexp"
@@ -34,7 +34,7 @@ func TestAvatar(t *testing.T) {
 	t.Error("Avatar URL is not of the correct format")
 }
 
-func TestColor(t *testing.T) {
+func TestInternetColor(t *testing.T) {
 	color := f.Internet().Color(100, 100, 100)
 
 	matched, err := regexp.MatchString("^#[A-F0-9]{6}$", color)
