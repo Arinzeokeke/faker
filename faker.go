@@ -15,6 +15,7 @@ const (
 	databasePrefix = "database"
 	datePrefix     = "date"
 	internetPrefix = "internet"
+	loremPrefix    = "lorem"
 )
 
 var (
@@ -54,6 +55,7 @@ type Faker interface {
 	Database() Databaser
 	Dater() Dater
 	Internet() Internetier
+	Lorem() Loremer
 }
 
 // Config for Faker
@@ -113,6 +115,11 @@ func (f *Fake) Date() Dater {
 // Internet returns internet
 func (f *Fake) Internet() Internetier {
 	return &Internet{f}
+}
+
+// Lorem returns Lorem
+func (f *Fake) Lorem() Loremer {
+	return &Lorem{f}
 }
 
 //Lang sets lang
