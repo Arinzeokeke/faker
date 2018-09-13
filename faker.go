@@ -15,6 +15,7 @@ const (
 	databasePrefix = "database"
 	datePrefix     = "date"
 	internetPrefix = "internet"
+	hackerPrefix   = "hacker"
 )
 
 var (
@@ -54,6 +55,7 @@ type Faker interface {
 	Database() Databaser
 	Dater() Dater
 	Internet() Internetier
+	Hacker() Hackier
 }
 
 // Config for Faker
@@ -113,6 +115,11 @@ func (f *Fake) Date() Dater {
 // Internet returns internet
 func (f *Fake) Internet() Internetier {
 	return &Internet{f}
+}
+
+// Hacker returns hacker
+func (f *Fake) Hacker() Hackier {
+	return &Hacker{f}
 }
 
 //Lang sets lang
