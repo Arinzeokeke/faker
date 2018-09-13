@@ -7,7 +7,10 @@ import (
 )
 
 func main() {
-	f, _ := faker.New(&faker.Config{DefaultLocale: "en"})
+	f, err := faker.New(&faker.Config{DefaultLocale: "en"}, "locale")
+	if err != nil {
+		fmt.Println(err)
+	}
 	fmt.Println(f.Name().FirstName())
 	fmt.Println(f.Name().JobTitle())
 	fmt.Println(f.Internet().Avatar())
