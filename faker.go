@@ -16,6 +16,7 @@ const (
 	datePrefix     = "date"
 	internetPrefix = "internet"
 	hackerPrefix   = "hacker"
+	loremPrefix    = "lorem"
 )
 
 var (
@@ -56,6 +57,7 @@ type Faker interface {
 	Dater() Dater
 	Internet() Internetier
 	Hacker() Hackier
+	Lorem() Loremer
 }
 
 // Config for Faker
@@ -120,6 +122,11 @@ func (f *Fake) Internet() Internetier {
 // Hacker returns hacker
 func (f *Fake) Hacker() Hackier {
 	return &Hacker{f}
+}
+
+// Lorem returns Lorem
+func (f *Fake) Lorem() Loremer {
+	return &Lorem{f}
 }
 
 //Lang sets lang

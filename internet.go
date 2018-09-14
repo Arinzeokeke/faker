@@ -5,6 +5,8 @@ import (
 	"math"
 	"regexp"
 	"strings"
+
+	"github.com/corpix/uarand"
 )
 
 // Internetier interface
@@ -21,6 +23,7 @@ type Internetier interface {
 	Mac(sep string) string
 	Protocol() string
 	URL() string
+	UserAgent() string
 	UserName(firstName, lastName string) string
 }
 
@@ -132,6 +135,11 @@ func (i *Internet) Protocol() string {
 // URL Generates a random url.
 func (i *Internet) URL() string {
 	return i.Internet().Protocol() + "://" + i.Internet().DomainName()
+}
+
+// UserAgent Generates a random user agent
+func (i *Internet) UserAgent() string {
+	return uarand.GetRandom()
 }
 
 // UserName Generates a username based on one of several patterns
