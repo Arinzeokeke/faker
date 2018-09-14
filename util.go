@@ -107,3 +107,11 @@ func randHash() string {
 	}
 	return hash
 }
+
+func mustache(str string, data map[string]string) string {
+	for key, val := range data {
+		re := regexp.MustCompile("{{" + key + "}}")
+		str = re.ReplaceAllString(str, val)
+	}
+	return str
+}
