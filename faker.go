@@ -55,6 +55,7 @@ type Faker interface {
 	Company() Companier
 	Database() Databaser
 	Dater() Dater
+	Image() Imager
 	Internet() Internetier
 	Hacker() Hackier
 	Lorem() Loremer
@@ -112,6 +113,11 @@ func (f *Fake) Database() Databaser {
 // Date returns date
 func (f *Fake) Date() Dater {
 	return &Date{f}
+}
+
+// Image returns image
+func (f *Fake) Image() Imager {
+	return &Image{f}
 }
 
 // Internet returns internet
