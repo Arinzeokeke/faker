@@ -1,12 +1,14 @@
 package faker
 
 import (
+	"fmt"
 	"strconv"
 )
 
 // Imager interface
 type Imager interface {
 	Avatar() string
+	RandImage(width, height int) string
 	ImageURL(width, height int, category string) string
 	DataURL(width, height int) string
 	Abstract(width, height int) string
@@ -32,6 +34,39 @@ type Image struct {
 // Avatar Generates a URL for an avatar.
 func (i *Image) Avatar() string {
 	return i.Internet().Avatar()
+}
+
+// RandImage Returns a random image url from any of the available categories
+func (i *Image) RandImage(width, height int) string {
+	categories := []string{
+		"abstract", "animals", "business", "cats", "city",
+		"food", "nightlife", "fashion", "people",
+		"nature", "sports", "technics", "transport",
+	}
+	categoriesFuncs := map[string]interface{}{
+		"abstract":  i.Image().Abstract,
+		"animals":   i.Image().Animals,
+		"business":  i.Image().Business,
+		"cats":      i.Image().Cats,
+		"city":      i.Image().City,
+		"food":      i.Image().Food,
+		"nightlife": i.Image().Nightlife,
+		"fashion":   i.Image().Fashion,
+		"people":    i.Image().People,
+		"nature":    i.Image().Nature,
+		"sports":    i.Image().Sports,
+		"technics":  i.Image().Technics,
+		"transport": i.Image().Transport,
+	}
+
+	function := selectElement(categories)
+
+	result, err := callFunc(categoriesFuncs, function, width, height)
+	if err != nil {
+		panic(err)
+	}
+
+	return fmt.Sprintf("%s", result[0])
 }
 
 // ImageURL Generates an image url

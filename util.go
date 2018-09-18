@@ -1,9 +1,11 @@
 package faker
 
 import (
+	"errors"
 	"math/rand"
 	"os"
 	"path/filepath"
+	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
@@ -114,4 +116,24 @@ func mustache(str string, data map[string]string) string {
 		str = re.ReplaceAllString(str, val)
 	}
 	return str
+}
+
+// Call a particular function by name from a map of functions and names
+// Courtesy of https://mikespook.com/2012/07/function-call-by-name-in-golang/
+func callFunc(m map[string]interface{}, functionName string, params ...interface{}) (result []reflect.Value, err error) {
+	f := reflect.ValueOf(m[functionName])
+
+	if len(params) != f.Type().NumIn() {
+		err = errors.New("The number of params is not adapted")
+		return nil, err
+	}
+
+	in := make([]reflect.Value, len(params))
+
+	for k, param := range params {
+		in[k] = reflect.ValueOf(param)
+	}
+
+	result = f.Call(in)
+	return
 }
