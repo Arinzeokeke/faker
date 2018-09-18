@@ -31,7 +31,7 @@ type Image struct {
 	*Fake
 }
 
-// Avatar Generates a URL for an avatar.
+// Avatar returns a URL for an avatar.
 func (i *Image) Avatar() string {
 	return i.Internet().Avatar()
 }
@@ -69,7 +69,7 @@ func (i *Image) RandImage(width, height int) string {
 	return fmt.Sprintf("%s", result[0])
 }
 
-// ImageURL Generates an image url
+// ImageURL returns an image url
 func (i *Image) ImageURL(width, height int, category string) string {
 	protocol := "http://"
 	w := strconv.Itoa(width)

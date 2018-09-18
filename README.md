@@ -126,7 +126,7 @@ import (
   * Verb
   * Ingverb
   * Phrase
-* Image (TODO)
+* Image
   * Image
   * Avatar
   * ImageUrl

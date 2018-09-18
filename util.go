@@ -40,17 +40,22 @@ func replaceSymbols(s string) string {
 	return str
 }
 
+// random returns a non-negative pseudo-random number in [0,n).
+// It's an abstraction over rand.Intn() with a unix-time sourse
 func random(i int) int {
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
 	return r.Intn(i)
 }
 
+// randomIntRange returns a non-negative pseudo-random number in a defined range.
 func randomIntRange(min, max int) int {
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
 	return r.Intn(max-min) + min
 }
+
+// randomFloatRange returns, as float64, a non-negative pseudo-random number in [min, max).
 func randomFloatRange(min, max int) float64 {
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
@@ -86,7 +91,7 @@ func (slice strslice) indexOf(searchElement string) int {
 	return -1
 }
 
-// Return a random elemnet from an array
+// returns a random elemnet from an array of strings
 func selectElement(arr []string) string {
 	return arr[random(len(arr))]
 }
@@ -101,7 +106,7 @@ func slugify(word string) string {
 	return replaceBlank
 }
 
-// Generate a 4-digit hash
+// returns a 4-digit hash.
 func randHash() string {
 	hash := ""
 	for i := 0; i < 4; i++ {
@@ -110,6 +115,10 @@ func randHash() string {
 	return hash
 }
 
+// Replace occurences of {{ adjective|verb|abbreviation|noun }} in a sring with a value.
+// For example:
+// 		We need to {{ verbtheadjective
+//		Weneedtooverridethewireless }}
 func mustache(str string, data map[string]string) string {
 	for key, val := range data {
 		re := regexp.MustCompile("{{" + key + "}}")
@@ -118,7 +127,7 @@ func mustache(str string, data map[string]string) string {
 	return str
 }
 
-// Call a particular function by name from a map of functions and names
+// Call a particular function by name from a map of functions and names.
 // Courtesy of https://mikespook.com/2012/07/function-call-by-name-in-golang/
 func callFunc(m map[string]interface{}, functionName string, params ...interface{}) (result []reflect.Value, err error) {
 	f := reflect.ValueOf(m[functionName])

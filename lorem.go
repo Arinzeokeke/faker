@@ -19,17 +19,17 @@ type Lorem struct {
 	*Fake
 }
 
-// Lines Generates lines of lorem separated by `'\n'`
+// Lines returns lines of lorem separated by `'\n'`
 func (l *Lorem) Lines(lineCount int) string {
 	return l.Lorem().Sentences(lineCount, "\n")
 }
 
-// Paragraph Generate a paragraph
+// Paragraph returns a paragraph
 func (l *Lorem) Paragraph(sentenceCount int) string {
 	return l.Lorem().Sentences(sentenceCount+random(3), " ")
 }
 
-// Paragraphs Generate n paragraph(s)
+// Paragraphs returns n paragraph(s)
 func (l *Lorem) Paragraphs(sentenceCount int, separator string) string {
 	paragraphs := []string{}
 	for count := sentenceCount; count > 0; count-- {
@@ -38,13 +38,13 @@ func (l *Lorem) Paragraphs(sentenceCount int, separator string) string {
 	return strings.Join(paragraphs, "\n \r")
 }
 
-// Sentence Generates a sentence of n words
+// Sentence returns a sentence of n words
 func (l *Lorem) Sentence(wordCount int) string {
 	sentence := l.Lorem().Words(wordCount)
 	return strings.ToUpper(string(sentence[0])) + string(sentence[1:]) + "."
 }
 
-// Sentences Generate sentences divided by a separator
+// Sentences returns sentences divided by a separator
 func (l *Lorem) Sentences(sentenceCount int, separator string) string {
 	sentences := []string{}
 	for count := sentenceCount; count > 0; count-- {
@@ -54,17 +54,17 @@ func (l *Lorem) Sentences(sentenceCount int, separator string) string {
 	return strings.Join(sentences, separator)
 }
 
-// Slug Generate a slugged sentence
+// Slug returns a slugged sentence
 func (l *Lorem) Slug(wordCount int) string {
 	return slugify(l.Lorem().Words(wordCount))
 }
 
-// Word Generates a random word
+// Word returns a random word
 func (l *Lorem) Word() string {
 	return l.pick(loremPrefix + "/words")
 }
 
-// Words Generates an amount of words
+// Words returns an amount of words
 func (l *Lorem) Words(num int) string {
 	words := []string{}
 	for i := 0; i < num; i++ {
