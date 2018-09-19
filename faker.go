@@ -14,6 +14,9 @@ const (
 	companyPrefix  = "company"
 	databasePrefix = "database"
 	datePrefix     = "date"
+	internetPrefix = "internet"
+	hackerPrefix   = "hacker"
+	loremPrefix    = "lorem"
 )
 
 var (
@@ -52,17 +55,21 @@ type Faker interface {
 	Company() Companier
 	Database() Databaser
 	Dater() Dater
+	Image() Imager
+	Internet() Internetier
+	Hacker() Hackier
+	Lorem() Loremer
 }
 
 // Config for Faker
 type Config struct {
-	defaultLocale string
+	DefaultLocale string
 }
 
 //New creates new faker
-func New(c *Config) (*Fake, error) {
+func New(c *Config, path string) (*Fake, error) {
 
-	e, err := tr.Init("locale", c.defaultLocale)
+	e, err := tr.Init(path, c.DefaultLocale)
 	if err != nil {
 		return nil, fmt.Errorf("Couldn't load locale, Error: %v", err)
 
@@ -106,6 +113,26 @@ func (f *Fake) Database() Databaser {
 // Date returns date
 func (f *Fake) Date() Dater {
 	return &Date{f}
+}
+
+// Image returns image
+func (f *Fake) Image() Imager {
+	return &Image{f}
+}
+
+// Internet returns internet
+func (f *Fake) Internet() Internetier {
+	return &Internet{f}
+}
+
+// Hacker returns hacker
+func (f *Fake) Hacker() Hackier {
+	return &Hacker{f}
+}
+
+// Lorem returns Lorem
+func (f *Fake) Lorem() Loremer {
+	return &Lorem{f}
 }
 
 //Lang sets lang

@@ -32,7 +32,7 @@ func (c *Commerce) Department() string {
 
 // ProductName returns a commerce product name
 func (c *Commerce) ProductName() string {
-	return fmt.Sprintf("%s %s %s", c.ProductAdjective(), c.ProductMaterial(), c.ProductName())
+	return fmt.Sprintf("%s %s %s", c.ProductAdjective(), c.ProductMaterial(), c.Product())
 }
 
 // ProductAdjective returns a commerce product adjective

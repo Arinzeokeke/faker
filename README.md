@@ -16,7 +16,7 @@ import (
 
  func main() {
      // Get faker instance setting default locale to en (english)
-     f, err := faker.New(&Config{defaultLocale: "en"})
+     f, err := faker.New(&faker.Config{DefaultLocale: "en"}, "locale")
      if err != nil {
          fmt.Errorf("Error loading locale, %v", err)
      }
@@ -26,6 +26,9 @@ import (
 
      // print fake job title
      fmt.Println(f.Name().JobTitle())
+
+    //  print fake internet email
+    fmt.Println(f.Internet().Email("Arinze", "Okeke", "xmail.com"))
 
      //change locale(language) to example: german. (de)
      f.Lang("de")
@@ -116,14 +119,14 @@ import (
   * EthereumAddress
   * Iban
   * Bic
-* Hacker (TODO)
+* Hacker
   * Abbreviation
   * Adjective
   * Noun
   * Verb
   * Ingverb
   * Phrase
-* Image (TODO)
+* Image
   * Image
   * Avatar
   * ImageUrl
@@ -141,7 +144,7 @@ import (
   * Technics
   * Transport
   * DataUri
-* Internet (TODO)
+* Internet
   * Avatar
   * Email
   * ExampleEmail
@@ -157,7 +160,7 @@ import (
   * Color
   * Mac
   * Password
-* Lorem (TODO)
+* Lorem
   * Word
   * Words
   * Sentence
